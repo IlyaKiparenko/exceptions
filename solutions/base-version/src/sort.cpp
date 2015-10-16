@@ -1,5 +1,6 @@
 #include <search.h>
 #include <windows.h>
+#include "sort.h"
 
 int CmpDouble(const void *arg1, const void *arg2) {
   const double arg1_as_double = *static_cast<const double *>(arg1),
@@ -18,6 +19,16 @@ double Sort(double *mas, int size) {
   LARGE_INTEGER freq;
   LARGE_INTEGER start, finish;
   QueryPerformanceFrequency(&freq);
+
+  if(mas==0)
+  {
+	  throw NullPtrException(25,2);
+  }
+
+  if(size<0)
+  {
+	  throw NegArrLenException(30,2);
+  }
 
   QueryPerformanceCounter(&start);
   qsort(mas, size, sizeof(double), CmpDouble);
